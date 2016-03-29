@@ -21,19 +21,23 @@ public class ContactCreationTests {
     public void setUp() throws Exception {
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        login();
     }
     
     @Test
     public void testContactCreation() {
         wd.get("http://localhost/addressbook/");
-        wd.findElement(By.name("user")).click();
-        wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys("admin");
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys("secret");
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-        wd.findElement(By.linkText("add new")).click();
+
+        gotoAddContactPage();
+        fillContactForm();
+        submitContactCreation();
+    }
+
+    private void submitContactCreation() {
+        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+    }
+
+    private void fillContactForm() {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys("Ivanov");
@@ -57,9 +61,22 @@ public class ContactCreationTests {
         wd.findElement(By.name("mobile")).click();
         wd.findElement(By.name("mobile")).clear();
         wd.findElement(By.name("mobile")).sendKeys("9152477412");
-        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
-    
+
+    private void gotoAddContactPage() {
+        wd.findElement(By.linkText("add new")).click();
+    }
+
+    private void login() {
+        wd.findElement(By.name("user")).click();
+        wd.findElement(By.name("user")).clear();
+        wd.findElement(By.name("user")).sendKeys("admin");
+        wd.findElement(By.name("pass")).click();
+        wd.findElement(By.name("pass")).clear();
+        wd.findElement(By.name("pass")).sendKeys("secret");
+        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+    }
+
     @AfterMethod
     public void tearDown() {
         wd.quit();
