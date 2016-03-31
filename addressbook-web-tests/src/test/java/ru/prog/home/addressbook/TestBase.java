@@ -81,4 +81,56 @@ public class TestBase {
     protected void selectGroup() {
         wd.findElement(By.name("selected[]")).click();
     }
+
+    protected void submitContactCreation() {
+        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+    }
+
+    protected void fillContactForm(ContactData contactData) {
+        wd.findElement(By.name("firstname")).click();
+        wd.findElement(By.name("firstname")).clear();
+        wd.findElement(By.name("firstname")).sendKeys(contactData.getFirstname());
+        wd.findElement(By.name("middlename")).click();
+        wd.findElement(By.name("middlename")).clear();
+        wd.findElement(By.name("middlename")).sendKeys(contactData.getMiddlename());
+        wd.findElement(By.name("lastname")).click();
+        wd.findElement(By.name("lastname")).clear();
+        wd.findElement(By.name("lastname")).sendKeys(contactData.getLastname());
+        wd.findElement(By.name("nickname")).click();
+        wd.findElement(By.name("nickname")).clear();
+        wd.findElement(By.name("nickname")).sendKeys(contactData.getNickname());
+        wd.findElement(By.name("company")).click();
+        wd.findElement(By.name("company")).clear();
+        wd.findElement(By.name("company")).sendKeys(contactData.getCompany());
+        wd.findElement(By.name("address")).click();
+        wd.findElement(By.name("address")).clear();
+        wd.findElement(By.name("address")).sendKeys(contactData.getAddress());
+        wd.findElement(By.name("mobile")).click();
+        wd.findElement(By.name("mobile")).clear();
+        wd.findElement(By.name("mobile")).sendKeys(contactData.getMobile());
+    }
+
+    protected void gotoAddContactPage() {
+        wd.findElement(By.linkText("add new")).click();
+    }
+
+    protected void deleteSelectedContact() {
+      //  wd.findElement(By.xpath("//div[@id='content']/form[2]/div[2]/input")).click();
+        wd.findElement(By.xpath(".//*[@value='Delete']")).click();
+
+    }
+
+    protected void selectContact() {
+      //  wd.findElement(By.id("5")).click(); -- выбор контакта по id
+          wd.findElement(By.xpath("(//input[@type='checkbox'])[1]")).click(); // первого из списка контактов
+
+    }
+
+    protected void gotoContactPage() {
+        wd.findElement(By.linkText("home")).click();
+    }
+
+    protected void confirmContactDeletion() {
+        wd.switchTo().alert().accept();
+    }
 }
